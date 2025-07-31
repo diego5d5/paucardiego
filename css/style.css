@@ -1,0 +1,427 @@
+:root {
+    /* Font Sizes - Kept consistent as they are good for responsiveness */
+    --font-size__mobile: 1.4rem;
+    --font-size__laptop: 1.6rem;
+    --font-size__desktop: 4rem;
+
+    /* Light Mode Colors */
+    --color-text: #2c003e; /* Dark purple for text */
+    --primary-color: #8affd1; /* Neon green-blue for primary elements */
+    --secondary-color: rgba(140, 70, 200, 0.2); /* Semi-transparent purple for secondary */
+    --background-color-degrade: linear-gradient(45deg, #aafff8, #f0ccff); /* Gradient from light blue-green to light purple */
+
+    /* Dark Mode Colors */
+    --dark-color-text: #d4f8ff; /* Light blue-white for dark mode text */
+    --dark-primary-color: #00e0ff; /* Bright cyan for dark primary */
+    --dark-secondary-color: rgba(50, 0, 80, 0.4); /* Darker semi-transparent purple for dark secondary */
+    --dark-tertiary-color: #0d0014; /* Very dark purple for borders/accents */
+    --dark-fourth-color: #4a005c; /* Dark purple for backgrounds in dark mode pop-ups */
+    --dark-background-color-degrade: linear-gradient(45deg, #001f3f, #1a0033); /* Deep blue to deep purple gradient */
+
+    --pc: #e74c3c; /* Red for PC side in results, contrasting with blue */
+}
+
+/* Theme switch overrides for a distinct secondary light mode */
+[data-theme="true"] {
+    --primary-color: #ff8ad1; /* A vibrant pink for an alternative light theme primary */
+    --secondary-color: rgba(255, 100, 180, 0.3); /* Softer pink semi-transparent */
+    --color-text: #4d0031; /* Darker pink-purple text */
+    --background-color-degrade: linear-gradient(45deg, #ffe0f0, #fff0e0); /* Soft pink to orange gradient */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+    font-size: 62.5%;
+    font-family: 'Montserrat', sans-serif; /* Keeping Montserrat as requested */
+}
+
+body {
+    background: var(--background-color-degrade);
+    overflow: hidden;
+    transition: background 0.5s ease-in-out; /* Smooth transition for background on theme change */
+}
+
+body.dark {
+    background: var(--dark-background-color-degrade);
+}
+
+header {
+    width: 100%;
+    height: 4rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+nav ul {
+    margin: 10px 25px;
+    list-style-type: none;
+}
+
+.toggle-dark-mode {
+    display: inline-block;
+    position: relative;
+    margin: 25px;
+    width: 4.2rem;
+    height: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+    box-shadow: 0 0 5px var(--primary-color); /* Added a subtle glow */
+    transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+body.dark .toggle-dark-mode {
+    background-color: var(--dark-primary-color);
+    box-shadow: 0 0 5px var(--dark-primary-color); /* Glow for dark mode */
+}
+
+#theme {
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    background-color: #fff; /* White circle for the toggle */
+    background-image: url("../assets/icons/sun.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    transition: left 0.5s ease-in-out, background-image 0.5s ease-in-out; /* Smooth transition for position and image */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for the toggle button */
+}
+
+body.dark #theme {
+    left: calc(100% - 2.4rem);
+    background-image: url("../assets/icons/moon.svg");
+}
+
+.puntos {
+    font-size: var(--font-size__mobile);
+    color: var(--color-text); /* Use variable for text color */
+    font-weight: 600; /* Slightly bolder for better readability */
+}
+
+body.dark .puntos {
+    color: var(--dark-color-text);
+}
+
+.puntos p {
+    display: inline;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+main #title {
+    margin: 25px;
+    font-size: var(--font-size__laptop); /* Adjusted for slightly larger default */
+    color: var(--color-text);
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Subtle text shadow */
+    transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+
+body.dark main #title {
+    color: var(--dark-color-text);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* Lighter shadow for dark mode */
+}
+
+main .container-piedra-papel-tijera {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+    width: 100%;
+    height: 30vh;
+}
+
+main .container-piedra-papel-tijera figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 90px; /* Slightly larger circles */
+    height: 90px; /* Slightly larger circles */
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--primary-color); /* Added a border */
+    transition: all 0.3s ease-in-out; /* Smoother transition */
+}
+
+main .container-piedra-papel-tijera figure:hover {
+    box-shadow: 0rem 0.4rem 1.2rem 0.2rem rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-color); /* Stronger shadow and glow on hover */
+    transform: scale(1.15); /* Slightly less aggressive scale */
+    border-color: #fff; /* White border on hover for contrast */
+}
+
+body.dark main .container-piedra-papel-tijera figure {
+    background-color: var(--dark-secondary-color);
+    border-color: var(--dark-primary-color);
+}
+
+body.dark main .container-piedra-papel-tijera figure:hover {
+    box-shadow: 0rem 0.4rem 1.2rem 0.2rem rgba(0, 0, 0, 0.6), 0 0 15px var(--dark-primary-color); /* Dark mode glow */
+    border-color: #fff;
+}
+
+
+main .container-piedra-papel-tijera figure img {
+    width: 60%; /* Slightly smaller icons to give more padding */
+    height: 60%;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3)); /* Icon shadow */
+}
+
+main section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 70vh;
+}
+
+.button-play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px; /* Slightly wider button */
+    height: 5rem; /* Taller button */
+    font-size: var(--font-size__laptop); /* Larger font for button */
+    font-weight: 800; /* Extra bold */
+    color: var(--color-text);
+    background-color: var(--primary-color);
+    border: 3px solid var(--color-text); /* Thicker border */
+    border-radius: 30px; /* More rounded */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Button shadow */
+    transition: all 0.3s ease-in-out;
+}
+
+.button-play:hover {
+    border: none;
+    box-shadow: 0rem 0.4rem 1rem 0.2rem rgba(0, 0, 0, 0.6), 0 0 20px var(--primary-color); /* Stronger glow on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+body.dark .button-play {
+    color: var(--dark-tertiary-color);
+    background-color: var(--dark-primary-color);
+    border: 3px solid var(--dark-tertiary-color);
+}
+
+body.dark .button-play:hover {
+    border: none;
+    box-shadow: 0rem 0.4rem 1rem 0.2rem rgba(0, 0, 0, 0.6), 0 0 20px var(--dark-primary-color);
+}
+
+.container-resultado {
+    display: none; /* Keep hidden by default */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% - 180px); /* Adjusted position */
+    height: auto;
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Max width for larger screens */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow for pop-up */
+    border-radius: 30px; /* Consistent rounded corners */
+}
+
+.container-resultado ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5rem; /* Taller result bar */
+    font-size: var(--font-size__laptop); /* Larger font */
+    font-weight: 700;
+    color: var(--color-text); /* Use theme text color */
+    background-color: #fff; /* White background for light mode */
+    border: none;
+    border-radius: 30px;
+    overflow: hidden; /* Ensures internal borders are within radius */
+}
+
+body.dark .container-resultado ul {
+    background-color: var(--dark-fourth-color); /* Dark mode specific background */
+    color: var(--dark-color-text);
+}
+
+.container-resultado #user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%; /* Increased width */
+    height: 100%; /* Fill height */
+    font-size: var(--font-size__mobile);
+    font-weight: 700;
+    color: var(--dark-color-text); /* Keep light text on dark background */
+    background-color: var(--dark-primary-color); /* Primary color for user side */
+    border-radius: 30px 0px 0px 30px;
+}
+
+.container-resultado #resultado-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%; /* Adjusted width */
+    height: 100%;
+    border: 2px solid var(--dark-primary-color);
+    border-right: none;
+    color: var(--color-text); /* Use theme text color */
+}
+
+body.dark .container-resultado #resultado-user {
+    border-color: var(--dark-primary-color);
+    color: var(--dark-color-text);
+}
+
+.container-resultado #vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+    border-top: 2px solid var(--dark-primary-color);
+    border-bottom: 2px solid var(--pc);
+    color: var(--color-text); /* Use theme text color */
+    font-size: var(--font-size__mobile);
+    font-weight: 900; /* Very bold 'VS' */
+}
+
+body.dark .container-resultado #vs {
+    border-color: var(--dark-primary-color);
+    color: var(--dark-color-text);
+}
+
+
+.container-resultado #resultado-pc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%; /* Adjusted width */
+    height: 100%;
+    border: 2px solid var(--pc);
+    border-left: none;
+    color: var(--color-text); /* Use theme text color */
+}
+
+body.dark .container-resultado #resultado-pc {
+    border-color: var(--pc);
+    color: var(--dark-color-text);
+}
+
+.container-resultado #pc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%; /* Increased width */
+    height: 100%;
+    font-size: var(--font-size__mobile);
+    font-weight: 700;
+    color: var(--dark-color-text);
+    background-color: var(--pc); /* PC's color */
+    border-radius: 0px 30px 30px 0px;
+}
+
+.container-jugar-otra-vez {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% + 200px); /* Adjusted position */
+    height: auto;
+}
+
+/* Outcome Pop-ups (Ganaste, Perdiste, Empate) */
+#ganaste, #perdiste, #empate {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% - 175px); /* Adjusted position to be slightly higher */
+    width: 350px; /* Wider pop-ups */
+    height: 350px; /* Taller pop-ups */
+    background-color: #fff;
+    border: 5px solid var(--primary-color); /* Distinct border */
+    border-radius: 35px; /* More rounded */
+    box-shadow: 0rem 0.6rem 1.5rem 0.3rem rgba(0, 0, 0, 0.5), 0 0 30px var(--primary-color); /* Stronger shadow and glow */
+    transition: all 0.5s ease-in-out;
+    padding: 20px; /* Inner padding */
+}
+
+body.dark #ganaste, body.dark #perdiste, body.dark #empate {
+    background-color: var(--dark-fourth-color);
+    border-color: var(--dark-primary-color);
+    box-shadow: 0rem 0.6rem 1.5rem 0.3rem rgba(0, 0, 0, 0.7), 0 0 30px var(--dark-primary-color);
+}
+
+#ganaste figure, #perdiste figure, #empate figure {
+    margin: 25px;
+    width: 100px; /* Larger icon */
+    height: 100px; /* Larger icon */
+}
+
+#ganaste img, #perdiste img, #empate img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 5px 8px rgba(0,0,0,0.3)); /* Icon shadow */
+}
+
+#ganaste p, #perdiste p, #empate p {
+    font-size: var(--font-size__desktop); /* Larger font for result text */
+    font-weight: 700;
+    color: var(--color-text); /* Use theme text color */
+    text-align: center;
+    line-height: 1.2;
+}
+
+body.dark #ganaste p, body.dark #perdiste p, body.dark #empate p {
+    color: var(--dark-color-text);
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 12vh; /* Slightly taller footer */
+    background-color: var(--secondary-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow at the top of footer */
+    transition: background-color 0.5s ease-in-out;
+}
+
+body.dark footer {
+    background-color: var(--dark-secondary-color);
+}
+
+footer h4 {
+    font-size: var(--font-size__mobile);
+    font-weight: 600; /* Slightly bolder */
+    color: var(--color-text); /* Use theme text color */
+}
+
+body.dark footer h4 {
+    color: var(--dark-tertiary-color); /* Dark mode specific footer text color */
+}
